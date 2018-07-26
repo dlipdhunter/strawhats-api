@@ -31,6 +31,8 @@ namespace strawhats_api
             
             services.AddDbContext<PirateDbContext>(options => options.UseSqlServer(connectionString));
 
+            services.AddCors();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -45,6 +47,10 @@ namespace strawhats_api
             {
                 app.UseHsts();
             }
+
+            app.UseCors(option => 
+                option.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader()
+            );
 
             app.UseHttpsRedirection();
             app.UseMvc();
