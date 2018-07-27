@@ -10,6 +10,7 @@ namespace strawhats_api.Models
         }
 
         public virtual DbSet<Pirate> Pirates { get; set; }
+        public virtual DbSet<PirateCrew> PirateCrews { get; set; }
 
     }
 }

@@ -1,12 +1,16 @@
-namespace strawhats_api.Models {
+namespace strawhats_api.Models
+{
     using System;
 
-    public class Pirate {
-        public int ID { get; set; }
+    public class Pirate
+    {
+        public int PirateID { get; set; }
         public string Name { get; set; }
-        public string NickName { get; set; }        
-        public string CrewName { get; set; }
+        public string NickName { get; set; }
+        public int PirateCrewID { get; set; }
         public string Position { get; set; }
-        public decimal Bounty { get; set; }
+        public double Bounty { get; set; }
+
+        public virtual PirateCrew PirateCrew { get; set; }
     }
 }

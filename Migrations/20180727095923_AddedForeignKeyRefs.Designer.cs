@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using strawhats_api.Models;
 
 namespace strawhatsapi.Migrations
 {
     [DbContext(typeof(PirateDbContext))]
-    partial class PirateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180727095923_AddedForeignKeyRefs")]
+    partial class AddedForeignKeyRefs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

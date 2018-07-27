@@ -28,12 +28,16 @@ namespace strawhats_api
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration.GetValue<string>("connectionString");
-            
-            services.AddDbContext<PirateDbContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddDbContext<PirateDbContext>(options => options.UseLazyLoadingProxies().UseSqlServer(connectionString));
 
             services.AddCors();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services
+            .AddMvc()
+            .AddJsonOptions(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +52,7 @@ namespace strawhats_api
                 app.UseHsts();
             }
 
-            app.UseCors(option => 
+            app.UseCors(option =>
                 option.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader()
             );
 

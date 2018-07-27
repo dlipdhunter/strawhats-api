@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using strawhats_api.Models;
 
 namespace strawhatsapi.Migrations
 {
     [DbContext(typeof(PirateDbContext))]
-    partial class PirateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180726092650_PirateCrewAddition")]
+    partial class PirateCrewAddition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,46 +22,36 @@ namespace strawhatsapi.Migrations
 
             modelBuilder.Entity("strawhats_api.Models.Pirate", b =>
                 {
-                    b.Property<int>("PirateID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("Bounty");
+                    b.Property<decimal>("Bounty");
+
+                    b.Property<string>("CrewName");
 
                     b.Property<string>("Name");
 
                     b.Property<string>("NickName");
 
-                    b.Property<int>("PirateCrewID");
-
                     b.Property<string>("Position");
 
-                    b.HasKey("PirateID");
-
-                    b.HasIndex("PirateCrewID");
+                    b.HasKey("ID");
 
                     b.ToTable("Pirates");
                 });
 
             modelBuilder.Entity("strawhats_api.Models.PirateCrew", b =>
                 {
-                    b.Property<int>("PirateCrewID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name");
 
-                    b.HasKey("PirateCrewID");
+                    b.HasKey("ID");
 
                     b.ToTable("PirateCrews");
-                });
-
-            modelBuilder.Entity("strawhats_api.Models.Pirate", b =>
-                {
-                    b.HasOne("strawhats_api.Models.PirateCrew", "PirateCrew")
-                        .WithMany("Pirates")
-                        .HasForeignKey("PirateCrewID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

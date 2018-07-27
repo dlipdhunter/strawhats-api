@@ -21,7 +21,8 @@ namespace strawhats_api.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Pirate>> Get()
         {
-            return oPirateDbContext.Pirates.ToList();
+            var r = oPirateDbContext.Pirates.ToList(); 
+            return r;
         }
 
         // GET api/pirates/5
@@ -48,18 +49,18 @@ namespace strawhats_api.Controllers
             oPirateDbContext.Add(pirate);
             oPirateDbContext.SaveChanges();
 
-            return CreatedAtAction(nameof(Get), new { id = pirate.ID }, pirate);
+            return CreatedAtAction(nameof(Get), new { id = pirate.PirateID }, pirate);
         }
 
         // PUT api/pirates/5
         [HttpPut("{id}")]
         public ActionResult Put(int id, [FromBody] Pirate pirate)
         {
-            if(pirate == null || pirate.ID != id) {
+            if(pirate == null || pirate.PirateID != id) {
                 return BadRequest();
             }
 
-            var vPirate = oPirateDbContext.Pirates.SingleOrDefault(p => p.ID == id);
+            var vPirate = oPirateDbContext.Pirates.SingleOrDefault(p => p.PirateID == id);
 
             if(vPirate == null) {
                 return NotFound();
@@ -67,7 +68,7 @@ namespace strawhats_api.Controllers
 
             vPirate.Name = pirate.Name;
             vPirate.NickName = pirate.NickName;
-            vPirate.CrewName = pirate.CrewName;
+            vPirate.PirateCrewID = pirate.PirateCrewID;
             vPirate.Position = pirate.Position;
             vPirate.Bounty = pirate.Bounty;
 
